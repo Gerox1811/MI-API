@@ -25,12 +25,17 @@ async function getUser(params) {
 }
 
 async function updateUser(params) {
-    const {displayName, password} = params;
-    const user = await auth.updateUser(displayName, password);
+    const { auth, email, displayName, password } = params;
+
+    const user = await auth.updateUserByEmail(email, {
+        displayName,
+        password,
+    });
+
     return user;
 }
-
 module.exports = {
     addUser,
-    getUser
-}
+    getUser,
+    updateUser
+};

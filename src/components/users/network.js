@@ -34,16 +34,22 @@ function getUser(req, res) {
     .catch((error) => res.send(error))
 }
 
-function patchUser(req, res){
-    const { displayName } = req;
-    const { password } = req.body;
+function updateUser(req, res) {
+    const { auth } = req;
+    const {
+        email,
+        password,
+        displayName
+    } = req.body;
 
-    Controller.patchUser({
-        displayName,
-        password
+    Controller.updateUser({
+        auth,
+        email,
+        password,
+        displayName
     })
     .then((result) => res.send(result))
-    .catch((error) => res.send(error))
+    .catch((error) => res.send(error));
 }
 // /users post agregar
 // /users patch actualizar
@@ -52,6 +58,6 @@ function patchUser(req, res){
 
 router.post("/", addUser)
 router.get("/get-user", getUser)
-router.patch("/update", patchUser)
+router.patch("/users", updateUser);
 
 module.exports = router
